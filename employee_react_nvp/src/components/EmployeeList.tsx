@@ -89,7 +89,7 @@ const EmployeeList = () => {
           { title: 'Ngày sinh', dataIndex: 'dateOfBirth' },
           { title: 'Giới tính', dataIndex: 'gender', render: (g: string) => g === 'MALE' ? 'Nam' : g === 'FEMALE' ? 'Nữ' : 'Khác' },
           { title: 'Số điện thoại', dataIndex: 'phoneNumber' },
-          { title: 'Hoạt động', dataIndex: 'active', render: (a: boolean) => a ? 'Y' : 'N' },
+          { title: 'Hoạt động', dataIndex: 'active', render: (a: boolean) => a ? '✔️' : 'N' },
           {
             title: 'Hành động',
             render: (_: unknown, record: Employee) => (
