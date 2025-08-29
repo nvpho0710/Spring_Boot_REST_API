@@ -1,3 +1,4 @@
+
 package com.example.spring_be_nvp.exceptions;
 
 import org.springframework.http.HttpStatus;

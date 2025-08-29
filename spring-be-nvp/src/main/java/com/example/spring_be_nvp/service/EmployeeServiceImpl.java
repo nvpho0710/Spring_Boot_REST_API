@@ -7,6 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.spring_be_nvp.dto.*;
 import com.example.spring_be_nvp.entity.Employee;
 import com.example.spring_be_nvp.repository.EmployeeRepository;
+import com.example.spring_be_nvp.exceptions.ResourceNotFoundException;
+import com.example.spring_be_nvp.exceptions.DuplicateEmailException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.transaction.annotation.*;
@@ -36,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public EmployeeDTO createEmployee(EmployeeCreateDTO request) {
         if (employeeRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email already exists");
+            throw new DuplicateEmailException("Email already exists");
         }
 
         Employee employee = Employee.builder()
@@ -63,16 +65,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDTO getEmployeeById(Long id) {
-        Employee employee = employeeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+    Employee employee = employeeRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
         return toDTO(employee);
     }
 
     @Override
     @Transactional
     public EmployeeDTO updateEmployee(Long id, EmployeeUpdateDTO request) {
-        Employee employee = employeeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+    Employee employee = employeeRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
         if (request.getFullName() != null) {
             employee.setFullName(request.getFullName());
         }
@@ -102,7 +104,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public void deleteEmployee(Long id) {
         if (!employeeRepository.existsById(id)) {
-            throw new RuntimeException("Employee not found");
+            throw new ResourceNotFoundException("Employee not found");
         }
         employeeRepository.deleteById(id);
     }
