@@ -104,23 +104,37 @@ const EmployeeForm = () => {
       layout="vertical"
       style={{ maxWidth: 600, margin: '0 auto' }}
     >
-      <Form.Item name="fullName" label="Họ và tên" rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}> <Input /> </Form.Item>
-      <Form.Item name="email" label="Email" rules={[{ required: true, type: 'email', message: 'Vui lòng nhập email hợp lệ' }]}> <Input /> </Form.Item>
-      <Form.Item name="dateOfBirth" label="Ngày sinh" rules={[{ required: true, message: 'Vui lòng chọn ngày sinh' }]}> <DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} /> </Form.Item>
-      <Form.Item name="gender" label="Giới tính" rules={[{ required: true, message: 'Vui lòng chọn giới tính' }]}> <Select
-        options={[
-          { value: 'MALE', label: 'Nam' },
-          { value: 'FEMALE', label: 'Nữ' },
-          { value: 'OTHER', label: 'Khác' },
-        ]}
-        placeholder="Chọn giới tính"
-        showSearch={false}
-        filterOption={false}
-        allowClear={false}
-      /> </Form.Item>
-      <Form.Item name="phoneNumber" label="Số điện thoại" rules={[{ required: true, message: 'Vui lòng nhập số điện thoại' }]}> <Input /> </Form.Item>
-      <Form.Item name="active" label="Hoạt động" valuePropName="checked"> <Checkbox>Hoạt động</Checkbox> </Form.Item>
-      <Form.Item name="password" label="Mật khẩu" rules={[{ required: !id, message: 'Vui lòng nhập mật khẩu' }]}> <Input.Password /> </Form.Item>
+      <Form.Item name="fullName" label="Họ và tên" rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}> 
+        <Input />
+      </Form.Item>
+      <Form.Item name="email" label="Email" rules={[{ required: true, type: 'email', message: 'Vui lòng nhập email hợp lệ' }]}> 
+        <Input />
+      </Form.Item>
+      <Form.Item name="dateOfBirth" label="Ngày sinh" rules={[{ required: true, message: 'Vui lòng chọn ngày sinh' }]}> 
+        <DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} />
+      </Form.Item>
+      <Form.Item name="gender" label="Giới tính" rules={[{ required: true, message: 'Vui lòng chọn giới tính' }]}> 
+        <Select
+          options={[
+            { value: 'MALE', label: 'Nam' },
+            { value: 'FEMALE', label: 'Nữ' },
+            { value: 'OTHER', label: 'Khác' },
+          ]}
+          placeholder="Chọn giới tính"
+          showSearch={false}
+          filterOption={false}
+          allowClear={false}
+        />
+      </Form.Item>
+      <Form.Item name="phoneNumber" label="Số điện thoại" rules={[{ required: true, message: 'Vui lòng nhập số điện thoại' }]}> 
+        <Input />
+      </Form.Item>
+      <Form.Item name="active" label="Hoạt động" valuePropName="checked"> 
+        <Checkbox>Hoạt động</Checkbox>
+      </Form.Item>
+      <Form.Item name="password" label="Mật khẩu" rules={[{ required: !id, message: 'Vui lòng nhập mật khẩu' }]}> 
+        <Input.Password />
+      </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={mutation.isPending}>
           {id ? 'Cập nhật' : 'Thêm mới'}

@@ -21,9 +21,15 @@ const fetchEmployees = async (): Promise<Employee[]> => {
 const deleteEmployee = async (id: number) => {
   const res = await fetch(`/api/employees/${id}`, {
     method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
   });
-  if (!res.ok) throw new Error('Xóa thất bại');
+  if (!res.ok) {
+    let errorMsg = 'Xóa thất bại';
+    try {
+      const error = await res.json();
+      errorMsg = error.message || errorMsg;
+    } catch {}
+    throw new Error(errorMsg);
+  }
   return true;
 };
 
@@ -42,19 +48,15 @@ const EmployeeList = () => {
       queryClient.invalidateQueries({ queryKey: ['employees'] });
       message.success('Xóa thành công!');
     },
-    onError: () => {
-      message.error('Xóa thất bại!');
+    onError: (error: any) => {
+      message.error(error.message || 'Xóa thất bại!');
     },
   });
 
   const handleDelete = (id: number) => {
-    Modal.confirm({
-      title: 'Bạn có chắc muốn xóa nhân viên này?',
-      okText: 'Xóa',
-      okType: 'danger',
-      cancelText: 'Hủy',
-      onOk: () => mutation.mutate(id),
-    });
+    if (window.confirm('Bạn có chắc muốn xóa nhân viên này?')) {
+      mutation.mutate(id);
+    }
   };
 
   // Lọc dữ liệu theo search
