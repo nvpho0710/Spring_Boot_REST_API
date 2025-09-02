@@ -11,6 +11,23 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<?> handleResourceNotFound(ResourceNotFoundException ex) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+				"status", "error",
+				"code", HttpStatus.NOT_FOUND.value(),
+				"message", ex.getMessage()
+		));
+	}
+
+	@ExceptionHandler(DuplicateEmailException.class)
+	public ResponseEntity<?> handleDuplicateEmail(DuplicateEmailException ex) {
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
+				"status", "error",
+				"code", HttpStatus.CONFLICT.value(),
+				"message", ex.getMessage()
+		));
+	}
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<?> handleValidationExceptions(MethodArgumentNotValidException ex) {
 		Map<String, String> errors = new HashMap<>();

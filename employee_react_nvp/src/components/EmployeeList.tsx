@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Table, Button, Modal, message, Input, Space } from 'antd';
+import { Table, Button,  message, Input, Space } from 'antd';
 import { useState } from 'react';
 
 type Employee = {
@@ -91,7 +91,7 @@ const EmployeeList = () => {
           { title: 'Ngày sinh', dataIndex: 'dateOfBirth' },
           { title: 'Giới tính', dataIndex: 'gender', render: (g: string) => g === 'MALE' ? 'Nam' : g === 'FEMALE' ? 'Nữ' : 'Khác' },
           { title: 'Số điện thoại', dataIndex: 'phoneNumber' },
-          { title: 'Hoạt động', dataIndex: 'active', render: (a: boolean) => a ? '✔️' : 'N' },
+          { title: 'Hoạt động', dataIndex: 'active', render: (a: boolean) => a ? '✔️' : '❌' },
           {
             title: 'Hành động',
             render: (_: unknown, record: Employee) => (
