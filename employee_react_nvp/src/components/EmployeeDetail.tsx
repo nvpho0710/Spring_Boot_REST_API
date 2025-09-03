@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from 'react-router';
+// React Query hook
 import { useQuery } from '@tanstack/react-query';
 import { Card, Button } from 'antd';
 
@@ -10,6 +11,7 @@ const fetchEmployee = async (id: string) => {
 const EmployeeDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  // Lấy chi tiết nhân viên bằng useQuery
   const { data, isLoading } = useQuery({
     queryKey: ['employee', id],
     queryFn: () => fetchEmployee(id!),

@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router';
+// React Query hooks
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Table, Button,  message, Input, Space } from 'antd';
 import { useState } from 'react';
@@ -35,17 +36,21 @@ const deleteEmployee = async (id: number) => {
 
 const EmployeeList = () => {
   const navigate = useNavigate();
+  // Lấy instance của QueryClient để thao tác cache
   const queryClient = useQueryClient();
+  // Lấy danh sách nhân viên bằng useQuery
   const { data, isLoading } = useQuery({
     queryKey: ['employees'],
     queryFn: fetchEmployees,
   });
   const [search, setSearch] = useState('');
 
+  // Mutation để xóa nhân viên
   const mutation = useMutation({
     mutationFn: deleteEmployee,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['employees'] });
+  // Làm mới lại danh sách nhân viên sau khi xóa
+  queryClient.invalidateQueries({ queryKey: ['employees'] });
       message.success('Xóa thành công!');
     },
     onError: (error: any) => {

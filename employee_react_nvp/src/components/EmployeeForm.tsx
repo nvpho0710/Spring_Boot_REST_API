@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from 'react-router';
+// React Query hooks
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Form, Input, Button, message, Select, Checkbox, DatePicker } from 'antd';
 import dayjs from 'dayjs';
@@ -47,19 +48,23 @@ const updateEmployee = async ({ id, ...data }: Employee) => {
 const EmployeeForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  // Lấy instance của QueryClient để thao tác cache
   const queryClient = useQueryClient();
   const [form] = Form.useForm();
 
+  // Lấy dữ liệu nhân viên (nếu cần) bằng useQuery
   const { data } = useQuery({
     queryKey: ['employee', id],
     queryFn: () => fetchEmployee(id!),
     enabled: !!id,
   });
 
+  // Mutation để thêm hoặc cập nhật nhân viên
   const mutation = useMutation({
       mutationFn: id ? updateEmployee : createEmployee,
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['employees'] });
+  // Làm mới lại danh sách nhân viên sau khi thêm/cập nhật
+  queryClient.invalidateQueries({ queryKey: ['employees'] });
         message.success(id ? 'Cập nhật thành công!' : 'Thêm mới thành công!');
         navigate('/');
       },

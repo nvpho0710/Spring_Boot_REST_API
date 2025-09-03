@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router';
+// React Query imports
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Layout, Breadcrumb } from 'antd';
 import EmployeeList from './components/EmployeeList';
@@ -7,9 +8,11 @@ import EmployeeForm from './components/EmployeeForm';
 import EmployeeDetail from './components/EmployeeDetail';
 
 function App() {
+  // Khởi tạo QueryClient cho React Query
   const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
+  // Bọc ứng dụng với QueryClientProvider để sử dụng React Query 
+  <QueryClientProvider client={queryClient}>
       <Router>
         <Layout style={{ minHeight: '100vh', background: '#f0f2f5', width: '100vw', margin: 0, padding: 0 }}>
           <Layout.Header style={{ 
@@ -52,7 +55,7 @@ function App() {
           </Layout.Content>
         </Layout>
       </Router>
-    </QueryClientProvider>
+  </QueryClientProvider>
   );
 }
 
